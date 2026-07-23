@@ -118,6 +118,6 @@ Model training
     ↓
 Global evaluation
     ↓
-Evaluation by language
+Evaluation
     ↓
 Error analysis
