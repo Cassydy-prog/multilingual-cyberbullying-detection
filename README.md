@@ -66,9 +66,7 @@ The dataset contains several languages, including:
 - English;
 - French;
 - Arabic;
-- Hindi;
-- Bengali;
-- [other languages to be added].
+- Turkish;
 
 ### Label Transformation
 
