@@ -27,31 +27,8 @@ We also want to know whether the models perform equally well across languages or
 
 ## 3. Dataset
 
-The dataset contains social media texts written in several languages, including English, French, Arabic, Hindi, Bengali, and others.
-
-The original label contains two types of information:
-
-- the language;
-- the content category.
-
-Examples of original labels include:
-
-- `eng_religion`
-- `fre_bully`
-- `ara_nonbully`
-- `ben_neutral`
-- `hin_hate`
-
-The original label is separated into:
-
-| Column | Meaning |
-|---|---|
-| `text` | Original social media text |
-| `language` | Language of the text |
-| `category` | Original category |
-| `label_binary` | Binary target used for classification |
-
-### Binary Label Transformation
+The dataset contains social media texts written in several languages, including English, French, Arabic, and Turkish.
+We cleaned out the dataset so we could have two classes 
 
 #### Class 0: Non-cyberbullying
 
