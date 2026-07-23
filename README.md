@@ -1,78 +1,65 @@
 # Multilingual Cyberbullying Detection
 
-## Project Overview
+## Simple Presentation Guide
 
-This Natural Language Processing project aims to develop and evaluate several models capable of automatically detecting cyberbullying in texts written in different languages.
+This document gives the team one clear story to follow during the presentation.  
+The goal is to avoid presenting disconnected code fragments and to explain the project as one complete NLP pipeline.
 
-The task is formulated as a **binary classification** problem:
+---
 
-- `0`: no cyberbullying;
+## 1. Project Objective
+
+The objective of this project is to detect cyberbullying in texts written in different languages.
+
+The task is formulated as a binary classification problem:
+
+- `0`: non-cyberbullying;
 - `1`: cyberbullying or abusive content.
 
-The project compares a traditional NLP approach with a multilingual Transformer-based approach:
+We compare two approaches:
 
-- **TF-IDF + Linear SVM**;
-- **XLM-RoBERTa fine-tuned for binary classification**.
-
----
-
-## Research Question
-
-Social media platforms make communication easier, but they are also used to spread insults, threats, hate speech, and different forms of online harassment.
-
-Automatically detecting this type of content is especially challenging in a multilingual setting. Languages do not all have the same amount of training data, and expressions of harassment may vary depending on the language, culture, and context.
-
-The main research question of this project is:
-
-> To what extent does a multilingual Transformer model such as XLM-RoBERTa outperform a traditional TF-IDF and Linear SVM approach for cyberbullying detection?
-
-The project will also investigate whether model performance remains consistent across the different languages represented in the dataset.
+1. **TF-IDF + Linear SVM**
+2. **XLM-RoBERTa fine-tuned for binary classification**
 
 ---
 
-## Objectives
+## 2. Research Question
 
-The main objectives of the project are:
+> Can a multilingual Transformer model detect cyberbullying more effectively across several languages than a traditional TF-IDF and Linear SVM model?
 
-1. Explore and clean a multilingual cyberbullying dataset.
-2. Convert the original categories into binary labels.
-3. Study the class distribution within each language.
-4. Build a baseline using TF-IDF and Linear SVM.
-5. Fine-tune XLM-RoBERTa for binary classification.
-6. Compare the performance of the selected models.
-7. Evaluate the results globally and separately for each language.
-8. Analyze model errors and limitations.
+We also want to know whether the models perform equally well across languages or whether some languages are more difficult to classify.
 
 ---
 
-## Dataset
+## 3. Dataset
 
-The project uses the **[exact dataset name]** dataset, which contains texts written in several languages.
+The dataset contains social media texts written in several languages, including English, French, Arabic, Hindi, Bengali, and others.
 
-Each observation includes the following fields:
+The original label contains two types of information:
 
-| Column | Description |
+- the language;
+- the content category.
+
+Examples of original labels include:
+
+- `eng_religion`
+- `fre_bully`
+- `ara_nonbully`
+- `ben_neutral`
+- `hin_hate`
+
+The original label is separated into:
+
+| Column | Meaning |
 |---|---|
-| `text` | Text content of the post |
-| `label_original` | Original label containing the language and category |
+| `text` | Original social media text |
 | `language` | Language of the text |
-| `category` | Original content category |
-| `label_binary` | Label used for binary classification |
+| `category` | Original category |
+| `label_binary` | Binary target used for classification |
 
-### Languages Included
+### Binary Label Transformation
 
-The dataset contains several languages, including:
-
-- English;
-- French;
-- Arabic;
-- Turkish;
-
-### Label Transformation
-
-The original categories are converted into two classes.
-
-#### Class 0: No cyberbullying
+#### Class 0: Non-cyberbullying
 
 - `neutral`
 - `nonbully`
@@ -89,33 +76,34 @@ The original categories are converted into two classes.
 - `religion`
 - `sex`
 - `sexual`
-- [other selected categories]
 
-Some ambiguous categories, such as `fake` or `political`, may be excluded from training when they do not clearly correspond to cyberbullying.
+The categories `fake` and `political` are considered ambiguous because they do not always represent cyberbullying. They should be excluded or analyzed separately.
 
 ---
 
-## Project Pipeline
+## 4. Data Preparation
 
-The general project pipeline is organized as follows:
+The raw dataset is kept unchanged.
+
+A single preprocessing pipeline is used to create three processed datasets:
+
+- training set;
+- validation set;
+- test set.
+
+The data preparation steps are:
 
 ```text
 Raw dataset
     ↓
-Data exploration
+Remove missing texts and invalid labels
     ↓
-Text cleaning and duplicate removal
+Remove duplicates
     ↓
-Language and category extraction
+Extract language and category
     ↓
-Binary label transformation
+Create the binary label
     ↓
-Class distribution analysis by language
+Clean the text while preserving multilingual characters
     ↓
-Train / validation / test split
-    ↓
-Model training
-    ↓
-Evaluation
-    ↓
-Error analysis
+Split into train, validation, and test sets
