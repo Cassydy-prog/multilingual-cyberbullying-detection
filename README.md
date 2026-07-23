@@ -292,7 +292,9 @@ False negatives are especially important because they represent harmful messages
 
 ---
 
-## 10. Current TF-IDF + Linear SVM Results
+## 10. Current Model Results
+
+For a valid comparison, both models must be evaluated on the same test set.
 
 The current test set contains:
 
@@ -300,26 +302,30 @@ The current test set contains:
 - 1,026 cyberbullying examples
 - 1,629 examples in total
 
-### Global Results
+---
+
+### 10.1 TF-IDF + Linear SVM Results
+
+#### Global Results
 
 | Metric | Score |
 |---|---:|
-| Accuracy | 0.8275 |
+| Test accuracy | 0.8275 |
 | Precision for cyberbullying | 0.8729 |
 | Recall for cyberbullying | 0.8499 |
 | F1-score for cyberbullying | 0.8612 |
 | Macro F1-score | 0.8167 |
 
-### Results by Class
+#### Results by Class
 
 | Class | Precision | Recall | F1-score | Support |
 |---|---:|---:|---:|---:|
 | Non-cyberbullying | 0.7556 | 0.7894 | 0.7721 | 603 |
 | Cyberbullying | 0.8729 | 0.8499 | 0.8612 | 1,026 |
 
-### Simple Interpretation
+#### Simple Interpretation
 
-The model correctly classified about **82.75%** of the test examples.
+The TF-IDF and Linear SVM model correctly classified about **82.75%** of the test examples.
 
 It performed better on the cyberbullying class than on the non-cyberbullying class.
 
@@ -330,24 +336,83 @@ The F1-score was:
 
 This difference may partly be explained by class imbalance because the cyberbullying class contains more examples than the non-cyberbullying class.
 
-The test set contains:
-
-- 1,026 cyberbullying examples
-- 603 non-cyberbullying examples
-
-The model may therefore learn the majority class more effectively.
-
 However, the difference may also come from:
 
 - ambiguous labels
 - normal messages containing aggressive words
-- texts that require more context
-- differences between the languages
+- messages requiring more contextual understanding
+- differences between languages
 - limitations of the TF-IDF representation
 
-The TF-IDF and Linear SVM model is therefore a strong baseline, but the results show that there is still room for improvement.
+The TF-IDF and Linear SVM model is therefore a strong baseline, but there is still room for improvement.
 
 ---
+
+### 10.2 XLM-RoBERTa Results
+
+#### Global Results
+
+| Metric | Score |
+|---|---:|
+| Test accuracy | 0.8660 |
+| Macro precision | 0.8563 |
+| Macro recall | 0.8559 |
+| Macro F1-score | 0.8561 |
+| Weighted F1-score | 0.8660 |
+
+#### Cyberbullying Class Results
+
+| Metric | Score |
+|---|---:|
+| Cyberbullying precision | 0.8930 |
+| Cyberbullying recall | 0.8947 |
+| Cyberbullying F1-score | 0.8939 |
+
+#### Simple Interpretation
+
+The XLM-RoBERTa model correctly classified about **86.60%** of the test examples.
+
+Its Macro F1-score of **85.61%** shows that the model achieved relatively balanced performance across the two classes.
+
+For the cyberbullying class, the model obtained:
+
+- **89.30% precision**
+- **89.47% recall**
+- **89.39% F1-score**
+
+The high precision means that most messages predicted as cyberbullying were actually cyberbullying.
+
+The high recall means that the model detected most of the real cyberbullying messages in the test set.
+
+The precision and recall scores are also very close, which indicates a good balance between avoiding false alerts and detecting harmful content.
+
+---
+
+### 10.3 Comparison Between the Models
+
+| Metric | TF-IDF + Linear SVM | XLM-RoBERTa | Improvement |
+|---|---:|---:|---:|
+| Test accuracy | 0.8275 | 0.8660 | +0.0385 |
+| Macro F1-score | 0.8167 | 0.8561 | +0.0394 |
+| Cyberbullying precision | 0.8729 | 0.8930 | +0.0201 |
+| Cyberbullying recall | 0.8499 | 0.8947 | +0.0448 |
+| Cyberbullying F1-score | 0.8612 | 0.8939 | +0.0327 |
+
+#### Comparison Interpretation
+
+XLM-RoBERTa outperformed TF-IDF + Linear SVM on all the main evaluation metrics.
+
+Its test accuracy increased from **82.75% to 86.60%**, representing an improvement of **3.85 percentage points**.
+
+The Macro F1-score increased from **81.67% to 85.61%**, showing that XLM-RoBERTa achieved better overall performance across both classes.
+
+The largest improvement was observed in cyberbullying recall, which increased from **84.99% to 89.47%**.
+
+This means that XLM-RoBERTa missed fewer cyberbullying messages than TF-IDF + Linear SVM.
+
+These results suggest that contextual and multilingual representations help the model better understand abusive content than a traditional statistical text representation.
+
+However, XLM-RoBERTa requires more computational resources and more training time than TF-IDF + Linear SVM.
 
 ## 11. Multilingual Evaluation
 
