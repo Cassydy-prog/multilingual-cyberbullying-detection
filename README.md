@@ -1,6 +1,4 @@
-from pathlib import Path
-
-content = """# Multilingual Cyberbullying Detection
+# Multilingual Cyberbullying Detection
 
 ## Project Overview
 
