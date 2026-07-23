@@ -1,10 +1,4 @@
 # Multilingual Cyberbullying Detection
-
-## Simple Presentation Guide
-
-This document gives the team one clear story to follow during the presentation.  
-The goal is to avoid presenting disconnected code fragments and to explain the project as one complete NLP pipeline.
-
 ---
 
 ## 1. Project Objective
