@@ -116,8 +116,6 @@ Train / validation / test split
     ↓
 Model training
     ↓
-Global evaluation
-    ↓
 Evaluation
     ↓
 Error analysis
